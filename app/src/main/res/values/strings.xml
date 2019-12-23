@@ -7,10 +7,38 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_principal">Menu principal</string>
+    <string name="administrar_vehiculos">Administrar Vehiculos</string>
+    <string name="administrar_usuarios">Administrar Usuarios</string>
+    <string name="administrar_alquileres">Administrar Alquileres</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Administrar Vehiculos -->
+    <string name="fragment_administrar_vehiculo_placa">Placa</string>
+    <string name="fragment_administrar_vehiculo_modelo">Modelo</string>
+    <string name="fragment_administrar_vehiculo_marca">Marca</string>
+    <string name="fragment_administrar_vehiculo_color">Color</string>
+    <string name="fragment_administrar_vehiculo_precio">Precio</string>
+    <string name="fragment_administrar_vehiculo_guardar">Guardar</string>
+    <string name="fragment_administrar_vehiculo_buscar">Buscar</string>
+
+    <!-- Administrar Usuarios -->
+    <string name="fragment_administrar_usuario_cedula">Cedula</string>
+    <string name="fragment_administrar_usuario_nombres">Nombres</string>
+    <string name="fragment_administrar_usuario_apellidos">Apellidos</string>
+    <string name="fragment_administrar_usuario_fecha_nacimiento">Fecha Nacimiento</string>
+    <string name="fragment_administrar_usuario_guardar">Guardar</string>
+    <string name="fragment_administrar_usuario_buscar">Buscar</string>
+
+    <!-- Administrar Alquileres -->
+    <string name="fragment_administrar_alquiler_cedula">Cedula</string>
+    <string name="fragment_administrar_alquiler_placa">Placa</string>
+    <string name="fragment_administrar_alquiler_fecha_inicio">Fecha Inicio</string>
+    <string name="fragment_administrar_alquiler_fecha_fin">Fecha Fin</string>
+    <string name="fragment_administrar_alquiler_valor">Valor</string>
+    <string name="fragment_administrar_usuario_alquilar">Alquilar</string>
+    <string name="fragment_administrar_usuario_devolver">Devolver</string>
+
 </resources>
