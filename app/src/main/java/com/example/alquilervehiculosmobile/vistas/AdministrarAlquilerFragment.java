@@ -1,6 +1,7 @@
 package com.example.alquilervehiculosmobile.vistas;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,18 +11,46 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.alquilervehiculosmobile.R;
+import com.example.alquilervehiculosmobile.modelo.Usuario;
+import com.example.alquilervehiculosmobile.modelo.Vehiculo;
+import com.example.alquilervehiculosmobile.servicios.Endpoint;
+import com.example.alquilervehiculosmobile.servicios.ServicioUsuario;
+import com.example.alquilervehiculosmobile.servicios.ServicioVehiculo;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class AdministrarAlquilerFragment extends Fragment {
 
+    private EditText cedula;
+    private Button buscarUsuario;
+    private EditText placa;
+    private Button buscarVehiculo;
     private EditText fechaInicio;
     private EditText fechaFin;
+    private EditText valor;
+    private Button alquilar;
+    private Button devolver;
+    private ProgressDialog progressDialog;
+
+    private Usuario usuario;
+    private Vehiculo vehiculo;
+
+    private ServicioUsuario servicioUsuario;
+    private ServicioVehiculo servicioVehiculo;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +63,15 @@ public class AdministrarAlquilerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        cedula = view.findViewById(R.id.cedula);
+        buscarUsuario = view.findViewById(R.id.buscarUsuario);
+        placa = view.findViewById(R.id.placa);
+        buscarVehiculo = view.findViewById(R.id.buscarVehiculo);
         fechaInicio = view.findViewById(R.id.fechaInicio);
         fechaFin = view.findViewById(R.id.fechaFin);
+        valor = view.findViewById(R.id.valor);
+        alquilar = view.findViewById(R.id.alquilar);
+        devolver = view.findViewById(R.id.devolver);
 
         fechaInicio.setFocusable(false);
         fechaFin.setFocusable(false);
@@ -46,11 +82,87 @@ public class AdministrarAlquilerFragment extends Fragment {
                 setFecha(fechaInicio);
             }
         });
-
         fechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setFecha(fechaFin);
+            }
+        });
+
+        progressDialog = new ProgressDialog(getContext());
+
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Endpoint.URL_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        servicioUsuario = retrofit.create(ServicioUsuario.class);
+        servicioVehiculo = retrofit.create(ServicioVehiculo.class);
+
+        buscarUsuario();
+        buscarVehiculo();
+    }
+
+
+    private void buscarUsuario() {
+        buscarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage(getResources().getString(R.string.mensajes_generales_buscando));
+                progressDialog.show();
+
+                Long cedulaUsuario = Long.valueOf(cedula.getText().toString());
+
+                servicioUsuario.buscar(cedulaUsuario).enqueue(new Callback<Usuario>() {
+                    @Override
+                    public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                        progressDialog.dismiss();
+                        if (response.body() != null) {
+                            usuario = response.body();
+                        } else {
+                            Toast.makeText(getContext(), getResources().getString(R.string.fragment_administrar_vehiculo_no_encontrado), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Usuario> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), getResources().getString(R.string.fragment_administrar_usuario_no_encontrado), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void buscarVehiculo() {
+        buscarVehiculo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage(getResources().getString(R.string.mensajes_generales_buscando));
+                progressDialog.show();
+
+                String placaVehiculo = placa.getText().toString();
+
+                servicioVehiculo.buscar(placaVehiculo).enqueue(new Callback<Vehiculo>() {
+                    @Override
+                    public void onResponse(Call<Vehiculo> call, Response<Vehiculo> response) {
+                        progressDialog.dismiss();
+                        if (response.body() != null) {
+                            vehiculo = response.body();
+                            valor.setText(String.valueOf(vehiculo.getPrecio()));
+                        } else {
+                            Toast.makeText(getContext(), getResources().getString(R.string.fragment_administrar_vehiculo_no_encontrado), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Vehiculo> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getContext(), getResources().getString(R.string.fragment_administrar_vehiculo_no_encontrado), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -72,7 +184,7 @@ public class AdministrarAlquilerFragment extends Fragment {
                 if ((monthOfYear + 1) < 10) {
                     mes = "0" + (monthOfYear + 1);
                 }
-                input.setText(dia + "-" + mes + "-" + year);
+                input.setText(year + "-" + mes + "-" + dia);
             }
         }, 0, 0, 2019);
         Calendar fechaHoy = new GregorianCalendar();

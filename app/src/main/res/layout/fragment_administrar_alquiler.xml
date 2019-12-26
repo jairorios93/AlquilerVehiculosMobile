@@ -12,19 +12,46 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <EditText
-            android:id="@+id/cedula"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/fragment_administrar_alquiler_cedula"
-            android:inputType="text" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/placa"
+            <EditText
+                android:id="@+id/cedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/fragment_administrar_alquiler_cedula"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/buscarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_administrar_alquiler_buscar_usuario" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/fragment_administrar_alquiler_placa"
-            android:inputType="textCapCharacters" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/placa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/fragment_administrar_alquiler_placa"
+                android:inputType="textCapCharacters" />
+
+            <Button
+                android:id="@+id/buscarVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_administrar_alquiler_buscar_vehiculo" />
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/fechaInicio"
@@ -54,18 +81,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/guardar"
+                android:id="@+id/alquilar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_administrar_usuario_alquilar" />
+                android:text="@string/fragment_administrar_alquiler_alquilar" />
 
             <Button
-                android:id="@+id/buscar"
+                android:id="@+id/devolver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fragment_administrar_usuario_devolver" />
+                android:text="@string/fragment_administrar_alquiler_devolver" />
 
         </LinearLayout>
     </LinearLayout>

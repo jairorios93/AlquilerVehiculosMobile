@@ -23,6 +23,8 @@
     <string name="fragment_administrar_vehiculo_precio">Precio</string>
     <string name="fragment_administrar_vehiculo_guardar">Guardar</string>
     <string name="fragment_administrar_vehiculo_buscar">Buscar</string>
+    <string name="fragment_administrar_vehiculo_registrado">El vehiculo ha sido registrado</string>
+    <string name="fragment_administrar_vehiculo_no_encontrado">No se encuentra informacion del vehiculo</string>
 
     <!-- Administrar Usuarios -->
     <string name="fragment_administrar_usuario_cedula">Cedula</string>
@@ -31,14 +33,21 @@
     <string name="fragment_administrar_usuario_fecha_nacimiento">Fecha Nacimiento</string>
     <string name="fragment_administrar_usuario_guardar">Guardar</string>
     <string name="fragment_administrar_usuario_buscar">Buscar</string>
+    <string name="fragment_administrar_usuario_registrado">El usuario ha sido registrado</string>
+    <string name="fragment_administrar_usuario_no_encontrado">No se encuentra informacion del usuario</string>
 
     <!-- Administrar Alquileres -->
     <string name="fragment_administrar_alquiler_cedula">Cedula</string>
+    <string name="fragment_administrar_alquiler_buscar_usuario">Buscar usuario</string>
     <string name="fragment_administrar_alquiler_placa">Placa</string>
+    <string name="fragment_administrar_alquiler_buscar_vehiculo">Buscar vehiculo</string>
     <string name="fragment_administrar_alquiler_fecha_inicio">Fecha Inicio</string>
     <string name="fragment_administrar_alquiler_fecha_fin">Fecha Fin</string>
     <string name="fragment_administrar_alquiler_valor">Valor</string>
-    <string name="fragment_administrar_usuario_alquilar">Alquilar</string>
-    <string name="fragment_administrar_usuario_devolver">Devolver</string>
+    <string name="fragment_administrar_alquiler_alquilar">Alquilar</string>
+    <string name="fragment_administrar_alquiler_devolver">Devolver</string>
 
+    <!-- General -->
+    <string name="mensajes_generales_registrando">Registrando</string>
+    <string name="mensajes_generales_buscando">Buscando</string>
 </resources>
