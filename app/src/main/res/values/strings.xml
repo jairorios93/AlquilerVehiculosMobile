@@ -46,6 +46,13 @@
     <string name="fragment_administrar_alquiler_valor">Valor</string>
     <string name="fragment_administrar_alquiler_alquilar">Alquilar</string>
     <string name="fragment_administrar_alquiler_devolver">Devolver</string>
+    <string name="fragment_administrar_alquiler_alquilando">Alquilando</string>
+    <string name="fragment_administrar_alquiler_devolviendo">Devolviendo</string>
+    <string name="fragment_administrar_alquiler_alquilado">El vehiculo ha sido alquilado</string>
+    <string name="fragment_administrar_alquiler_devuelto">El vehiculo ha sido devuelto</string>
+    <string name="fragment_administrar_alquiler_error_alquilando">Error alquilando el vehiculo</string>
+    <string name="fragment_administrar_alquiler_error_devolviendo">Error devolviendo el vehiculo</string>
+
 
     <!-- General -->
     <string name="mensajes_generales_registrando">Registrando</string>
