@@ -30,7 +30,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import okhttp3.ResponseBody;
@@ -87,13 +90,13 @@ public class AdministrarAlquilerFragment extends Fragment {
         fechaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFecha(fechaInicio);
+                setFechaInicio(fechaInicio);
             }
         });
         fechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFecha(fechaFin);
+                setFechaFin(fechaFin);
             }
         });
 
@@ -248,7 +251,7 @@ public class AdministrarAlquilerFragment extends Fragment {
      *
      * @param input el input a llenar
      */
-    private void setFecha(final EditText input) {
+    private void setFechaInicio(final EditText input) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
@@ -260,11 +263,51 @@ public class AdministrarAlquilerFragment extends Fragment {
                 if ((monthOfYear + 1) < 10) {
                     mes = "0" + (monthOfYear + 1);
                 }
+                fechaFin.setText("");
                 input.setText(year + "-" + mes + "-" + dia);
             }
         }, 0, 0, 2019);
         Calendar fechaHoy = new GregorianCalendar();
         datePickerDialog.updateDate(fechaHoy.get(Calendar.YEAR), fechaHoy.get(Calendar.MONTH), fechaHoy.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    /**
+     * llena el campo con la fecha seleccionada
+     *
+     * @param input el input a llenar
+     */
+    private void setFechaFin(final EditText input) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                String dia = String.valueOf(dayOfMonth);
+                String mes = String.valueOf((monthOfYear + 1));
+                if (dayOfMonth < 10) {
+                    dia = "0" + dayOfMonth;
+                }
+                if ((monthOfYear + 1) < 10) {
+                    mes = "0" + (monthOfYear + 1);
+                }
+                if (!fechaInicio.getText().toString().equals("")) {
+                    input.setText(year + "-" + mes + "-" + dia);
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.fragment_administrar_alquiler_seleccione_fecha_inicio), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, 0, 0, 2019);
+        Calendar fechaHoy = new GregorianCalendar();
+        datePickerDialog.updateDate(fechaHoy.get(Calendar.YEAR), fechaHoy.get(Calendar.MONTH), fechaHoy.get(Calendar.DAY_OF_MONTH));
+        if (!fechaInicio.getText().toString().equals("")) {
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicio.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            datePickerDialog.getDatePicker().setMinDate(date.getTime());
+        }
         datePickerDialog.show();
     }
 
